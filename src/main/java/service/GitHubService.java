@@ -25,17 +25,7 @@ public class GitHubService {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (response.statusCode() == 404) {
-
-                throw new ApiException("User not found.");
-
-            }
-
-            if (response.statusCode() == 403) {
-
-                throw new ApiException("API rate limit exceeded.");
-
-            }
+            validateResponse(response);
 
             JsonArray jsonArray = JsonParser.parseString(response.body()).getAsJsonArray();
 
@@ -45,15 +35,11 @@ public class GitHubService {
 
                 JsonObject eventJson = element.getAsJsonObject();
 
-                String type = eventJson.get("type").getAsString();
+                GitHubEvent event = createEvent(eventJson);
 
-                String repositoryName = eventJson.getAsJsonObject("repo").get("name").getAsString();
+                String formattedMessage = formatter.formatEvent(event);
 
-                GitHubEvent event = new GitHubEvent(type, repositoryName);
-
-                String formatedMessage = formatter.formatEvent(event);
-
-                System.out.println(formatedMessage);
+                System.out.println(formattedMessage);
 
             }
 
@@ -67,6 +53,38 @@ public class GitHubService {
             throw new ApiException("Request interrupted.");
 
         }
+    }
+
+    private GitHubEvent createEvent (JsonObject eventJson) {
+
+        String type = eventJson.get("type").getAsString();
+
+        String repositoryName = eventJson.getAsJsonObject("repo").get("name").getAsString();
+
+        return new GitHubEvent(type, repositoryName);
+
+    }
+
+    private void validateResponse (HttpResponse<String> response) {
+
+        if (response.statusCode() == 404) {
+
+            throw new ApiException("User not found.");
+
+        }
+
+        if (response.statusCode() == 403) {
+
+            throw new ApiException("API rate limit exceeded.");
+
+        }
+
+        if (response.statusCode() >= 500) {
+
+            throw new ApiException("GitHub API is unavailable.");
+
+        }
+
     }
 
 }

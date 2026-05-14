@@ -4,7 +4,7 @@ import model.GitHubEvent;
 
 public class EventFormatter {
 
-    public String formatEvent (GitHubEvent event) {
+    public String formatEvent(GitHubEvent event) {
 
         return switch (event.type()) {
 
