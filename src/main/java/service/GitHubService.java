@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.*;
+import util.EventFormatter;
 
 import java.io.IOException;
 import java.net.URI;
@@ -30,29 +31,25 @@ public class GitHubService {
 
             }
 
+            if (response.statusCode() == 403) {
+
+                System.out.println("API rate limit exceeded.");
+
+                return;
+
+            }
+
             JsonArray jsonArray = JsonParser.parseString(response.body()).getAsJsonArray();
+
+            EventFormatter formatter = new EventFormatter();
 
             for (JsonElement element : jsonArray) {
 
                 JsonObject event = element.getAsJsonObject();
 
-                String type = event.get("type").getAsString();
+                String formatedMessage = formatter.formatEvent(event);
 
-                String repositoryName = event.getAsJsonObject("repo").get("name").getAsString();
-
-                switch (type) {
-
-                    case "PushEvent" -> System.out.println("- Pushed commits to " + repositoryName);
-
-                    case "CreateEvent" -> System.out.println("- Created something in " + repositoryName);
-
-                    case "WatchEvent" -> System.out.println("- Starred " + repositoryName);
-
-                    case "IssuesEvent" -> System.out.println("- Opened an issue in " + repositoryName);
-
-                    case "ForkEvent" -> System.out.println("- Forked " + repositoryName);
-
-                }
+                System.out.println(formatedMessage);
 
             }
 
