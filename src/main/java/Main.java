@@ -12,7 +12,7 @@ public class Main {
 
         }
 
-        System.out.printf("Searching for user activities: %s", args[0]);
+        System.out.printf("Searching for user activities: %s\n", args[0]);
 
         String username = args[0];
 
