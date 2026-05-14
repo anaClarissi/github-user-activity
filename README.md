@@ -1,7 +1,3 @@
-Aqui está um README bem estruturado, no estilo profissional que você vem usando nos seus projetos, já com o link do desafio e instruções claras de execução 👇
-
----
-
 # 🚀 GitHub User Activity CLI
 
 [Desafio original (roadmap.sh)](https://roadmap.sh/projects/github-user-activity?utm_source=chatgpt.com)
