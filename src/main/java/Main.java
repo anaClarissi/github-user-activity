@@ -1,3 +1,4 @@
+import exception.ApiException;
 import service.GitHubService;
 
 public class Main {
@@ -18,7 +19,15 @@ public class Main {
 
         GitHubService service = new GitHubService();
 
-        service.fetchUserActivity(username);
+        try {
+
+            service.fetchUserActivity(username);
+
+        } catch (ApiException e) {
+
+            System.out.println(e.getMessage());
+
+        }
 
     }
 

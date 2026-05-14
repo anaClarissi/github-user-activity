@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.*;
+import exception.ApiException;
 import model.GitHubEvent;
 import util.EventFormatter;
 
@@ -26,17 +27,13 @@ public class GitHubService {
 
             if (response.statusCode() == 404) {
 
-                System.out.println("User not found.");
-
-                return;
+                throw new ApiException("User not found.");
 
             }
 
             if (response.statusCode() == 403) {
 
-                System.out.println("API rate limit exceeded.");
-
-                return;
+                throw new ApiException("API rate limit exceeded.");
 
             }
 
@@ -63,11 +60,11 @@ public class GitHubService {
 
         } catch (IOException e) {
 
-            throw new RuntimeException(e);
+            throw new ApiException("Error communicating with GitHub API.");
 
         } catch (InterruptedException e) {
 
-            throw new RuntimeException("Error: ", e);
+            throw new ApiException("Request interrupted.");
 
         }
     }
