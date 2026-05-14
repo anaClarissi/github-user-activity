@@ -1,4 +1,5 @@
 package model;
 
-public class GitHubEvent {
+public record GitHubEvent(String type, String repositoryName) {
+
 }

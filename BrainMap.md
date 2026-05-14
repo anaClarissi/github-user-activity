@@ -142,8 +142,6 @@
 - Armazenar dados
     - type
     - repoName
-    - action
-    - commits
 
 ### EventFormatter.java
 - Formatar mensagens amigáveis

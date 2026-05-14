@@ -1,28 +1,24 @@
 package util;
 
-import com.google.gson.JsonObject;
+import model.GitHubEvent;
 
 public class EventFormatter {
 
-    public String formatEvent (JsonObject event) {
+    public String formatEvent (GitHubEvent event) {
 
-        String type = event.get("type").getAsString();
+        return switch (event.type()) {
 
-        String repositoryName = event.getAsJsonObject("repo").get("name").getAsString();
+            case "PushEvent" -> "- Pushed commits to " + event.repositoryName();
 
-        return switch (type) {
+            case "CreateEvent" -> "- Created something in " + event.repositoryName();
 
-            case "PushEvent" -> "- Pushed commits to " + repositoryName;
+            case "WatchEvent" -> "- Starred " + event.repositoryName();
 
-            case "CreateEvent" -> "- Created something in " + repositoryName;
+            case "IssuesEvent" -> "- Opened an issue in " + event.repositoryName();
 
-            case "WatchEvent" -> "- Starred " + repositoryName;
+            case "ForkEvent" -> "- Forked " + event.repositoryName();
 
-            case "IssuesEvent" -> "- Opened an issue in " + repositoryName;
-
-            case "ForkEvent" -> "- Forked " + repositoryName;
-
-            default -> "- Performed " + type + " in " + repositoryName;
+            default -> "- Performed " + event.type() + " in " + event.repositoryName();
 
         };
 

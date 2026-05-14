@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.*;
+import model.GitHubEvent;
 import util.EventFormatter;
 
 import java.io.IOException;
@@ -45,7 +46,13 @@ public class GitHubService {
 
             for (JsonElement element : jsonArray) {
 
-                JsonObject event = element.getAsJsonObject();
+                JsonObject eventJson = element.getAsJsonObject();
+
+                String type = eventJson.get("type").getAsString();
+
+                String repositoryName = eventJson.getAsJsonObject("repo").get("name").getAsString();
+
+                GitHubEvent event = new GitHubEvent(type, repositoryName);
 
                 String formatedMessage = formatter.formatEvent(event);
 
