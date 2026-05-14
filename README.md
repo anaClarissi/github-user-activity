@@ -10,7 +10,7 @@ Uma aplicação **CLI em Java** que consome a API do GitHub para exibir as ativi
 
 ## 🔗 Repositório
 
-👉 [Acessar código-fonte no GitHub](https://github.com/anaClarissi/github-user-activity)
+👉 Project URL: https://github.com/anaClarissi/github-user-activity
 
 
 ---
