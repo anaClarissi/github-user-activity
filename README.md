@@ -1,8 +1,6 @@
----
-
 # 🚀 GitHub User Activity CLI
 
-[Desafio original (roadmap.sh)](https://roadmap.sh/projects/github-user-activity?utm_source=chatgpt.com)
+https://roadmap.sh/projects/github-user-activity
 
 Uma aplicação **CLI em Java** que consome a API do GitHub para exibir as atividades recentes de um usuário diretamente no terminal.
 
@@ -10,8 +8,7 @@ Uma aplicação **CLI em Java** que consome a API do GitHub para exibir as ativi
 
 ## 🔗 Repositório
 
-👉 Project URL: https://github.com/anaClarissi/github-user-activity
-
+https://github.com/anaClarissi/github-user-activity
 
 ---
 
