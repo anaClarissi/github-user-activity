@@ -1,3 +1,5 @@
+import service.GitHubService;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -11,6 +13,12 @@ public class Main {
         }
 
         System.out.printf("Searching for user activities: %s", args[0]);
+
+        String username = args[0];
+
+        GitHubService service = new GitHubService();
+
+        service.fetchUserActivity(username);
 
     }
 
